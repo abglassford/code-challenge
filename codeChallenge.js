@@ -1,13 +1,5 @@
 (function() {
   'use strict';
-    console.log('hello');
-
-  if (window.File && window.FileReader && window.FileList && window.Blob) {
-    console.log('success!');
-  // Great success! All the File APIs are supported.
-  } else {
-    alert('The File APIs are not fully supported in this browser.');
-  }
 
   function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
@@ -23,11 +15,39 @@
           // Render html.
 
           getJSON(e.target.result, function(err, data) {
-            data.forEach((thing) => {
-              var span = document.createElement('span');
-              span.innerHTML = `<${thing.tag}"> ${thing.content.content} </${thing.tag}>`
-              document.getElementById('list').insertBefore(span, null);
+            data.forEach((parent) => {
+              build(parent)
             })
+
+
+
+            function build (item) {
+              if (item.hasOwnProperty('content')) {
+                console.log('Even Further!');
+                build(item.content)
+              } else {
+                console.log('YOU FOUND ME!');
+              }
+            }
+            //for each item in the json file
+            //if the item has a child/children
+            // data.forEach((item) => {
+            //   for (var key in item) {
+            //     console.log(key);
+            //   }
+            // })
+
+
+
+
+
+
+
+            // data.forEach((parent) => {
+            //   var span = document.createElement('span');
+            //   span.innerHTML = `<${parent.tag}><${parent.content.tag}>${parent.content.content}</${parent.content.tag}></${parent.tag}>`
+            //   document.getElementById('list').insertBefore(span, null);
+            // })
 
           });
         };
