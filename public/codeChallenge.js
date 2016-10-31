@@ -21,6 +21,7 @@
   }
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
 }());
+
 //create html out of json object
 function build(element) {
   if (Array.isArray(element.content)) {
