@@ -3,32 +3,39 @@
 
   function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
-
     // Loop through the FileList and render image files as thumbnails.
     for (var i = 0, f; f = files[i]; i++) {
-
       var reader = new FileReader();
-
       // Closure to capture the file information.
       reader.onload = (function(theFile) {
         return function(e) {
           // Render html.
 
           getJSON(e.target.result, function(err, data) {
-            data.forEach((parent) => {
-              build(parent)
-            })
+            var span = document.createElement('span');
+            span.innerHTML = `<${data[0].tag}><${data[0].content.tag}>${data[0].content.content}</${data[0].content.tag}></${data[0].tag}>`
+
+             document.getElementById('list').insertBefore(span, null);
 
 
 
-            function build (item) {
-              if (item.hasOwnProperty('content')) {
-                console.log('Even Further!');
-                build(item.content)
-              } else {
-                console.log('YOU FOUND ME!');
-              }
-            }
+
+            // data.forEach((parent) => {
+            //   build(parent)
+            // })
+            //
+            // function build (item) {
+            //   if (Array.isArray(item)) {
+            //     item.forEach((innerItem) => {
+            //       build(innerItem);
+            //     })
+            //   }
+            //   if (item.hasOwnProperty('content')) {
+            //     build(item.content)
+            //   } else {
+            //     console.log('end');
+            //   }
+            // }
             //for each item in the json file
             //if the item has a child/children
             // data.forEach((item) => {
