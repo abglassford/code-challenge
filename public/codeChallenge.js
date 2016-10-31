@@ -8,18 +8,18 @@
     for (var i = 0, f; f = files[i]; i++) {
       reader.onload = (function(file) {
         return function(e) {
-          getJSON(e.target.result, function(err, data) {
+          $.getJSON(e.target.result, function(data) {
             data.forEach((element) => {
               span.innerHTML += build(element)
             })
-             document.getElementById('list').insertBefore(span, null);
+             $('#list').empty().append(span);
           });
         };
       })(f);
       reader.readAsDataURL(f);
     }
   }
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  $('#files').on('change', handleFileSelect);
 }());
 
 //create html out of json object
@@ -34,18 +34,3 @@ function build(element) {
     return `<${element.tag}>${build(element.content)}</${element.tag}>`
   }
 }
-//convert file to json object
-function getJSON (url, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("get", url, true);
-  xhr.responseType = "json";
-  xhr.onload = function() {
-    var status = xhr.status;
-    if (status == 200) {
-      callback(null, xhr.response);
-    } else {
-      callback(status);
-    }
-  };
-  xhr.send();
-};
