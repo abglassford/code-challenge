@@ -26,11 +26,9 @@ function build(element) {
   if (Array.isArray(element.content)) {
     var htmlArr = [];
     element.content.forEach((item) => htmlArr.push(build(item)))
-    return htmlArr.join('')
-  }
-  if (typeof(element.content) === 'string'){
+    return `<${element.tag}>${htmlArr.join('')}</${element.tag}>`
+  } else if (typeof(element.content) == 'string'){
     return `<${element.tag}>${element.content}</${element.tag}>`
-    build(element.content)
   } else {
     return `<${element.tag}>${build(element.content)}</${element.tag}>`
   }
