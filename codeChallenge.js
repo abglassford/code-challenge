@@ -28,7 +28,7 @@ function build(element) {
     element.content.forEach((item) => htmlArr.push(build(item)))
     return htmlArr.join('')
   }
-  if (typeof(element.content) == 'string'){
+  if (typeof(element.content) === 'string'){
     return `<${element.tag}>${element.content}</${element.tag}>`
     build(element.content)
   } else {
